@@ -1,0 +1,144 @@
+/* 🌙 Dark Theme */
+body {
+  font-family: "Arial", sans-serif;
+  text-align: center;
+  background-color: #121212;
+  color: #e0e0e0;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: #ffffff;
+  font-size: 2rem;
+  margin-top: 20px;
+}
+
+/* Conteneur principal */
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 50px;
+  margin-top: 30px;
+}
+
+/* Partie gauche (jeu) */
+#left {
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  width: 350px;
+}
+
+#setup,
+#game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+label {
+  font-weight: bold;
+  color: #000fff;
+}
+
+input,
+select,
+button {
+  font-size: 16px;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #000fff;
+  background: #000222;
+  color: #000fff;
+}
+
+button {
+  background-color: #000fff;
+  color: #121212;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #9a67ea;
+}
+
+/* Affichage du mot */
+#wordDisplay {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.letter-box {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #000fff;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+  color: #e0e0e0;
+}
+
+.letter-box.selected {
+  background-color: #03dac6;
+}
+
+/* Partie droite (pendu) */
+#right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#hangmanCanvas {
+  margin-top : 20px;
+  border: 2px solid #2f3150;
+  background-color: #000222;
+  border-radius: 5px;
+}
+.remaining-words {
+  margin-top: 20px;
+  padding: 15px;
+  background: #2a2a2a;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.remaining-words p {
+  color: #03dac6;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.remaining-words ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.remaining-words li {
+  padding: 5px 10px;
+  margin: 3px 0;
+  background: #000333;
+  border-radius: 4px;
+  color: #e0e0e0;
+  font-family: monospace;
+  font-size: 1.1em;
+}

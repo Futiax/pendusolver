@@ -108,7 +108,10 @@ async function startGame() {
             .map((ligne) => {
                 // 1. On enlève les commentaires ou infos après le '/' (ex: "manger/v" -> "manger")
                 let motNettoye = ligne.split("/")[0];
-                return motNettoye.trim().toLowerCase();
+                let NTLmot = motNettoye.trim().toLowerCase();
+                NTLmot.replace(/œ/g, "oe").replace(/æ/g, "ae").replace("ç", "c");
+                let NTLSmot = NTLmot.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Enlever les accents
+                return NTLSmot;
             })
             .filter((mot) => {
                 // 2. On filtre :

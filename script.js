@@ -108,9 +108,9 @@ async function startGame() {
             .map((ligne) => {
                 // 1. On enlève les commentaires ou infos après le '/' (ex: "manger/v" -> "manger")
                 let motNettoye = ligne.split("/")[0];
-                let NTLmot = motNettoye.trim().toLowerCase();
-                NTLmot.replace(/œ/g, "oe").replace(/æ/g, "ae").replace("ç", "c");
-                let NTLSmot = NTLmot.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Enlever les accents
+                let TLmot = motNettoye.trim().toLowerCase();
+                let NTLWEmot = TLmot.replace(/œ/g, "oe").replace(/æ/g, "ae").replace(/ç/g, "c");
+                let NTLSmot = NTLWEmot.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Enlever les accents
                 return NTLSmot;
             })
             .filter((mot) => {
@@ -124,10 +124,8 @@ async function startGame() {
         motActuel = Array(longueur).fill("_");
         lettresUtilisees.clear();
         erreurs = 0;
-
         document.getElementById("setup").style.display = "none";
         document.getElementById("game").style.display = "block";
-
         drawHangman(erreurs);
         updateUI();
     } catch (error) {
@@ -138,7 +136,6 @@ async function startGame() {
 
 function getMostFrequentLetter() {
     alphabet = {};
-
     mots.forEach((mot) => {
         new Set(mot).forEach((l) => {
             if (!lettresUtilisees.has(l)) {
@@ -146,7 +143,6 @@ function getMostFrequentLetter() {
             }
         });
     });
-
     let sortedLetters = Object.entries(alphabet).sort((a, b) => b[1] - a[1]);
     return sortedLetters.length > 0 ? sortedLetters[0][0] : "";
 }
@@ -155,12 +151,9 @@ function updateUI() {
     document.getElementById("wordDisplay").innerHTML = motActuel
         .map((char, i) => `<div class="letter-box" data-index="${i}">${char}</div>`)
         .join("");
-
     document.getElementById("wordsLeft").textContent = mots.length;
-
     suggestedLetter = getMostFrequentLetter();
     document.getElementById("suggestedLetter").textContent = suggestedLetter || "Aucune";
-
     let boxes = document.querySelectorAll(".letter-box");
     boxes.forEach((box) => box.addEventListener("click", togglePosition));
 }
@@ -174,10 +167,8 @@ function validateGuess() {
     let selectedPositions = [...document.querySelectorAll(".letter-box.selected")].map((box) =>
         parseInt(box.dataset.index),
     );
-
     let newMots = [];
     let newLettresDesMots = [];
-
     if (selectedPositions.length === 0) {
         // Cas 1 : La lettre n'est pas dans le mot
         erreurs++;
@@ -196,11 +187,9 @@ function validateGuess() {
             // 1. La lettre doit être aux positions sélectionnées
             // 2. La lettre NE DOIT PAS être ailleurs
             let estCompatible = true;
-
             for (let pos = 0; pos < mot.length; pos++) {
                 let lettreDansLeMot = lettresDesMots[i][pos];
                 let positionEstSelectionnee = selectedPositions.includes(pos);
-
                 if (positionEstSelectionnee) {
                     if (lettreDansLeMot !== suggestedLetter) {
                         estCompatible = false;
@@ -213,20 +202,16 @@ function validateGuess() {
                     }
                 }
             }
-
             if (estCompatible) {
                 newMots.push(mot);
                 newLettresDesMots.push(lettresDesMots[i]);
             }
         });
-
         selectedPositions.forEach((pos) => (motActuel[pos] = suggestedLetter));
     }
-
     mots = newMots;
     lettresDesMots = newLettresDesMots;
     lettresUtilisees.add(suggestedLetter);
-
     if (mots.length === 1) {
         motActuel = mots[0].split("");
         updateUI();
@@ -236,6 +221,5 @@ function validateGuess() {
         alert("Aucun mot trouvé dans le dictionnaire !");
         return;
     }
-
     updateUI();
 }

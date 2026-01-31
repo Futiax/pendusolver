@@ -149,8 +149,12 @@ function getMostFrequentLetter() {
 
 function updateUI() {
     document.getElementById("wordDisplay").innerHTML = motActuel
-        .map((char, i) => `<div class="letter-box" data-index="${i}">${char}</div>`)
+        .map((char, i) => {
+            const displayChar = i === 0 ? String(char).toUpperCase() : String(char).toLowerCase();
+            return `<div class="letter-box" data-index="${i}">${displayChar}</div>`;
+        })
         .join("");
+
     document.getElementById("wordsLeft").textContent = mots.length;
     suggestedLetter = getMostFrequentLetter();
     document.getElementById("suggestedLetter").textContent = suggestedLetter || "Aucune";
